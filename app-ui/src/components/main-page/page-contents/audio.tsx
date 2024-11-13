@@ -51,7 +51,7 @@ const AudioPlayer: React.FC = () => {
 		<div className="p-5 flex">
 			<audio ref={audioRef} src={audio.song} />
 			<button
-				className="cursor-pointer p-1.5 h-[51.7px] rounded-[15px] border-3 border-[rgba(116,116,116,0.6)] bg-[rgba(114,114,114,0.5)] backdrop-blur-[15px]"
+				className="cursor-pointer p-1.5 h-[51.7px] rounded-[15px] border-3 border-[rgba(116,116,116,0.6)] bg-[rgba(114,114,114,0.5)] backdrop-blur-[15px] z-20"
 				onClick={handleButtonClick}
 			>
 				{isPlaying ? <img src={images.volumeOn} alt="Pause" /> : <img src={images.volumeOff} alt="Play" />}
