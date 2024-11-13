@@ -3,6 +3,7 @@ import { images } from "../image-grabber";
 import { altText } from "../../../../config/alt-text";
 import { links } from "../link-container";
 import i18n from "../../../../i18n/i18n";
+import "../../../../styles/global.css";
 
 const ContentMobile: React.FC = () => {
 	return (

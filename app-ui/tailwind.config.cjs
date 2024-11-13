@@ -8,11 +8,21 @@ module.exports = {
 			},
 			animation: {
 				fall: "fall linear infinite",
+				fadeIn: "fadeIn 0.5s ease-in-out forwards",
+				fadeInOnLoad: "fadeInAnimation 1s ease forwards",
 			},
 			keyframes: {
 				fall: {
 					"0%": { transform: "translateY(-100vh)" },
 					"100%": { transform: "translateY(100vh)" },
+				},
+				fadeIn: {
+					from: { opacity: 0 },
+					to: { opacity: 1 },
+				},
+				fadeInAnimation: {
+					"0%": { opacity: 0 },
+					"100%": { opacity: 1 },
 				},
 			},
 			boxShadow: {
@@ -32,6 +42,13 @@ module.exports = {
 				sm: "0 1px 2px rgba(0, 0, 0, 0.5)",
 				md: "0 2px 4px rgba(0, 0, 0, 0.5)",
 				lg: "0 4px 8px rgba(0, 0, 0, 0.5)",
+			},
+			borderWidth: {
+				3: "3px",
+			},
+			zIndex: {
+				10: "10",
+				1000: "1000",
 			},
 		},
 	},
