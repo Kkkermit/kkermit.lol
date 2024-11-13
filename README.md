@@ -160,7 +160,7 @@ test("renders button with label and handles click event", () => {
 - You can use Tailwind to make and style pretty much anything, here an example of how you would center text on a page.
 
 ```tsx
-import "../styles/index.css";
+import "../styles/global.css";
 
 function CenteredContent() {
   return (
