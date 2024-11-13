@@ -1,12 +1,12 @@
 import React from "react";
-import Content from "./page-contents/content";
+import ContentDesktop from "./page-contents/desktop-view/content-desktop";
+import ContentMobile from "./page-contents/mobile-view/content-mobile";
+import useWindowSize from "./useWindowSize";
 
 const Home: React.FC = () => {
-	return (
-		<div id="container">
-			<Content />
-		</div>
-	);
+	const { width } = useWindowSize();
+
+	return <div>{(width ?? 0) >= 768 ? <ContentDesktop /> : <ContentMobile />}</div>;
 };
 
 export default Home;
