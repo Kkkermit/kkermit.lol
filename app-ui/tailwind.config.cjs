@@ -50,6 +50,10 @@ module.exports = {
 				10: "10",
 				1000: "1000",
 			},
+			cursor: {
+				customNormal: "url(./public/mouse.png), auto",
+				customPointer: "url(./public/mouse-pointer.png), auto",
+			},
 		},
 	},
 	variants: {

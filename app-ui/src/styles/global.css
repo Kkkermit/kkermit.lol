@@ -24,4 +24,5 @@ body {
 	color: white;
 	position: relative;
 	height: 100vh;
+	cursor: url("../../public/mouse.png"), auto;
 }

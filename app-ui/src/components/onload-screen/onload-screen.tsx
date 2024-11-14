@@ -35,7 +35,7 @@ const OnloadScreen: React.FC<OnloadScreenProps> = ({ onEnterClick }) => {
 			<div
 				data-testid="welcome-screen"
 				onClick={handleClick}
-				className="cursor-pointer fixed top-0 left-0 w-full h-full bg-black text-white flex justify-center items-center z-[1000] p-1.5"
+				className="cursor-customPointer fixed top-0 left-0 w-full h-full bg-black text-white flex justify-center items-center z-[1000] p-1.5"
 			>
 				<h1 className="text-4xl font-extrabold animate-pulse">{i18n.t("onload.message")}</h1>
 			</div>
