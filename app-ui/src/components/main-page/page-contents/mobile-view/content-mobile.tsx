@@ -7,7 +7,7 @@ import "../../../../styles/global.css";
 
 const ContentMobile: React.FC = () => {
 	return (
-		<div className="flex justify-center items-center h-screen text-center mt-[-55px]">
+		<div className="flex justify-center items-center h-screen text-center mt-[-55px]" data-testid="content-mobile">
 			<div className="absolute inset-0 z-0">
 				<div className="stars absolute w-full h-full"></div>
 			</div>

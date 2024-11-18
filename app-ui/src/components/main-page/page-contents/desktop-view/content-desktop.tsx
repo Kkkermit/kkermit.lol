@@ -7,7 +7,10 @@ import "../../../../styles/global.css";
 
 const ContentDesktop: React.FC = () => {
 	return (
-		<div className="flex justify-center items-center h-screen text-center mt-[-55px] relative">
+		<div
+			className="flex justify-center items-center h-screen text-center mt-[-55px] relative"
+			data-testid="content-desktop"
+		>
 			<div className="absolute inset-0 z-0">
 				<div className="stars absolute w-full h-full"></div>
 			</div>
