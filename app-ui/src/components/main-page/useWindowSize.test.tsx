@@ -7,11 +7,6 @@ describe("useWindowSize", () => {
 		Object.defineProperty(window, "innerHeight", { writable: true, configurable: true, value: 768 });
 	});
 
-	it("renders the component", () => {
-		render(<MockComponent />);
-		expect(screen.getByTestId("mock-component")).toBeInTheDocument();
-	});
-
 	it("should return the initial window size", () => {
 		render(<MockComponent />);
 

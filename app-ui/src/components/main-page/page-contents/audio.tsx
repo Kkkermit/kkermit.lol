@@ -25,7 +25,7 @@ const AudioPlayer: React.FC = () => {
 
 	const handlePlay = () => {
 		setIsPlaying(true);
-		setCurrentSong(audio.songName);
+		setCurrentSong(audio[0].songName);
 		if (audioRef.current) {
 			audioRef.current.volume = 0.5;
 			audioRef.current.play();
@@ -49,7 +49,7 @@ const AudioPlayer: React.FC = () => {
 
 	return (
 		<div className="p-5 flex" data-testid="audio-player">
-			<audio ref={audioRef} src={audio.song} />
+			<audio ref={audioRef} src={audio[0].song} />
 			<button
 				className="cursor-customPointer p-1.5 h-[51.7px] rounded-[15px] border-3 border-[rgba(116,116,116,0.6)] bg-[rgba(114,114,114,0.5)] backdrop-blur-[15px] z-20"
 				onClick={handleButtonClick}

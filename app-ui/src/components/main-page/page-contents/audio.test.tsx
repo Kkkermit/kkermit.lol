@@ -18,8 +18,8 @@ describe("AudioPlayer", () => {
 
 	it("should render the audio name and play and song", () => {
 		const { container } = render(<AudioPlayer />);
-		expect(screen.getByText(audio.songName)).toBeInTheDocument();
-		expect(container.querySelector("audio")).toHaveAttribute("src", audio.song);
+		expect(screen.getByText(audio[0].songName)).toBeInTheDocument();
+		expect(container.querySelector("audio")).toHaveAttribute("src", audio[0].song);
 	});
 
 	it("should pause the music when the button is clicked", () => {
