@@ -18,7 +18,7 @@ const Background: React.FC = () => {
 		}
 	}, []);
 
-	return <div className="stars absolute w-full h-full" ref={ref}></div>;
+	return <div className="stars absolute w-full h-full" ref={ref} data-testid="background"></div>;
 };
 
 export default Background;
