@@ -9,7 +9,7 @@ const Home: React.FC = () => {
 	const { width } = useWindowSize();
 
 	return (
-		<div>
+		<div data-testid="home-page">
 			<AudioPlayer />
 			{(width ?? 0) >= 768 ? <ContentDesktop /> : <ContentMobile />}
 		</div>
