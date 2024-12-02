@@ -67,10 +67,10 @@ const commit = async () => {
 				return;
 			}
 			if (stderr) {
-				console.error(`${gitLogError} ${color.red}Stderr:${color.reset} \n${stderr}`);
+				console.error(`${gitLogError} ${color.red}Stderr: ${stderr}${color.reset}`);
 				return;
 			}
-			console.log(`${gitLog} ${color.green}Stdout: ${stdout}${color.reset}`);
+			console.log(`${gitLog} ${color.green}Stdout:${color.reset} \n ${stdout}`);
 		});
 	}
 
