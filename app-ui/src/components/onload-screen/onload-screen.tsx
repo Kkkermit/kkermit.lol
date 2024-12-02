@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Home from "../main-page/home";
-import AudioPlayer from "../main-page/page-contents/audio";
+import AudioPlayer from "../main-page/page-contents/site-audio/audio";
 import { i18n } from "../../i18n";
 import { OnloadScreenProps } from "./onload-screen-props";
 import "../../styles/global.css";

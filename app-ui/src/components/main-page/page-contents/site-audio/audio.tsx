@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { audio } from "./audio-container";
-import { images } from "./image-grabber";
+import { images } from "../image-grabber/image-grabber";
 import "../../../styles/global.css";
 
 const AudioPlayer: React.FC = () => {

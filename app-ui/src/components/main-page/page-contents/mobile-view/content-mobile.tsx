@@ -1,7 +1,7 @@
 import React from "react";
-import { images } from "../image-grabber";
+import { images } from "../image-grabber/image-grabber";
 import { altText } from "../../../../config/alt-text";
-import { links } from "../link-container";
+import { links } from "../link-container/link-container";
 import { i18n } from "../../../../i18n";
 import "../../../../styles/global.css";
 
