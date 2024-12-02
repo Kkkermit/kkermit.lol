@@ -70,7 +70,7 @@ const commit = async () => {
 				console.error(`${gitLogError} ${color.red}Stderr: ${stderr}${color.reset}`);
 				return;
 			}
-			console.log(`${gitLog} ${color.green}Stdout:${color.reset} \n ${stdout}`);
+			console.log(`${gitLog} ${color.green}Stdout:${color.reset} \n ${color.blue}${stdout}${color.reset}`);
 		});
 	}
 
