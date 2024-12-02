@@ -62,12 +62,12 @@ const commit = async () => {
 		exec(`git commit -m "${selectedType.type}: ${message}"`, (error, stdout, stderr) => {
 			if (error) {
 				console.error(
-					`${gitLogError} ${color.red}Error: ${error.message}. One reason for this could be because your files aren't being tracked. To add in your file, please use "git add <file>" or "git add ."${color.reset}`,
+					`${gitLogError} ${color.red}Error: ${error.message} \n${gitLogError}One reason for this could be because your files aren't being tracked. To add in your file, please use "git add <file>" or "git add ."${color.reset}`,
 				);
 				return;
 			}
 			if (stderr) {
-				console.error(`${gitLogError} ${color.red}Stderr: ${stderr}${color.reset}`);
+				console.error(`${gitLogError} ${color.red}Stderr:${color.reset} \n${stderr}`);
 				return;
 			}
 			console.log(`${gitLog} ${color.green}Stdout: ${stdout}${color.reset}`);
