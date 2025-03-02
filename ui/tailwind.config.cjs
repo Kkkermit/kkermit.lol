@@ -6,6 +6,9 @@ module.exports = {
 			width: {
 				"400px": "400px",
 			},
+			borderWidth: {
+				3: "3px",
+			},
 		},
 	},
 	variants: {

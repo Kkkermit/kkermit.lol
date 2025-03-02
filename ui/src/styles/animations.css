@@ -1,0 +1,41 @@
+.scroll-container {
+	position: relative;
+	overflow: hidden;
+	width: 150px;
+}
+
+.scroll-text {
+	display: inline-block;
+	white-space: nowrap;
+	animation: scroll-animation 5s linear infinite;
+	padding-right: 20px;
+	font-weight: 700;
+}
+
+@keyframes scroll-animation {
+	0% {
+		transform: translateX(100%);
+		opacity: 1;
+	}
+	100% {
+		transform: translateX(-100%);
+		opacity: 1;
+	}
+}
+
+.scroll-container::before,
+.scroll-container::after {
+	display: none;
+}
+
+.scroll-text-container {
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+}
+
+.animate-marquee {
+	display: inline-block;
+	animation: marquee 10s linear infinite;
+	padding-right: 2rem;
+}

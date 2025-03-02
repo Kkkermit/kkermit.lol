@@ -1,18 +1,32 @@
 import "./styles/index.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Landing from "./components/landingPage/landing-page";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
+import Welcome from "./components/landing/landing";
+import Landing from "./components/main/home";
+import AudioPlayer from "./components/audio/AudioPlayer";
+import ParticleBackground from "./components/background/ParticleBackground";
+import { useState } from "react";
 
 function App() {
+	const [showLanding, setShowLanding] = useState(false);
+
 	return (
-		<>
-			<div className="bg-gray-800 min-h-screen" id="container" data-testid="render-ui">
-				<Router>
-					<Routes>
-						<Route path="/" element={<Landing />} />
-					</Routes>
-				</Router>
+		<Provider store={store}>
+			<div className="relative" data-testid="render-ui">
+				<ParticleBackground />
+				<div className="relative z-10">
+					{!showLanding && <Welcome onEnter={() => setShowLanding(true)} />}
+					<div
+						className={`transition-opacity duration-1000 ${
+							showLanding ? "opacity-100" : "opacity-0 pointer-events-none"
+						}`}
+					>
+						<AudioPlayer />
+						<Landing />
+					</div>
+				</div>
 			</div>
-		</>
+		</Provider>
 	);
 }
 

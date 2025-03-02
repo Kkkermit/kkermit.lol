@@ -16,7 +16,7 @@
 		"@babel/preset-react": "7.25.9",
 		"@babel/preset-typescript": "7.26.0",
 		"@craco/craco": "7.1.0",
-		"@reduxjs/toolkit": "^2.3.0",
+		"@reduxjs/toolkit": "^1.9.5",
 		"@testing-library/react": "^16.0.1",
 		"@types/jest": "29.5.14",
 		"autoprefixer": "10.4.20",
@@ -25,11 +25,12 @@
 		"postcss": "8.4.47",
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1",
-		"react-redux": "^9.1.2",
+		"react-redux": "^8.1.1",
 		"react-router-dom": "^6.27.0",
 		"redux-mock-store": "^1.5.5",
 		"tailwindcss": "3.4.14",
-		"twin.macro": "3.4.1"
+		"twin.macro": "3.4.1",
+		"react-icons": "^4.10.1"
 	},
 	"devDependencies": {
 		"@babel/preset-env": "7.26.0",
