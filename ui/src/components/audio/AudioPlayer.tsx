@@ -4,15 +4,13 @@ import { RootState } from "../../store/store";
 import { togglePlay, setVolume } from "../../store/audioSlice";
 import pauseIcon from "../../assets/pause-unpause-buttons/pause.svg";
 import unpauseIcon from "../../assets/pause-unpause-buttons/unpause.svg";
-import songFile from "../../assets/music/Playboi-Carti-NO-9-REMIX.mp3";
 import "../../styles/animations.css";
 
 const AudioPlayer = () => {
 	const audioRef = useRef<HTMLAudioElement>(null);
 	const dispatch = useDispatch();
-	const { isPlaying, volume } = useSelector((state: RootState) => state.audio);
-	const songName = "Playboi Carti - NO. 9 (Remix)";
-	const isLongText = songName.length > 25;
+	const { isPlaying, volume, currentSong } = useSelector((state: RootState) => state.audio);
+	const isLongText = currentSong.name.length > 5;
 
 	useEffect(() => {
 		if (audioRef.current) {
@@ -30,24 +28,33 @@ const AudioPlayer = () => {
 		}
 	}, [isPlaying]);
 
-	const handlePlayPause = () => {
-		if (isPlaying) {
-			dispatch(togglePlay());
-			dispatch(setVolume(0));
-			setTimeout(() => {
+	const handlePlayPause = async () => {
+		try {
+			if (isPlaying) {
 				if (audioRef.current) {
 					audioRef.current.pause();
 				}
-			}, 500);
-		} else {
+				dispatch(setVolume(0));
+				dispatch(togglePlay());
+			} else {
+				dispatch(togglePlay());
+				dispatch(setVolume(0.5));
+				if (audioRef.current) {
+					const playPromise = audioRef.current.play();
+					if (playPromise) {
+						await playPromise;
+					}
+				}
+			}
+		} catch (error) {
 			dispatch(togglePlay());
-			dispatch(setVolume(0.5));
+			dispatch(setVolume(0));
 		}
 	};
 
 	return (
 		<div className="fixed top-4 left-4 z-50">
-			<audio ref={audioRef} src={songFile} loop />
+			<audio ref={audioRef} src={currentSong.path} loop />
 			<div className="group relative">
 				<div className="flex flex-col">
 					<div className="flex items-center p-1.5 rounded-[15px] border-3 border-[rgba(116,116,116,0.6)] bg-[rgba(114,114,114,0.5)] backdrop-blur-[15px] transition-all duration-300 w-[51.7px] group-hover:w-[200px]">
@@ -77,9 +84,9 @@ const AudioPlayer = () => {
 						<div className="bg-[rgba(114,114,114,0.5)] backdrop-blur-[15px] rounded-[15px] border-3 border-[rgba(116,116,116,0.6)] p-2">
 							<div className="scroll-container w-[150px] mx-auto">
 								{isLongText ? (
-									<span className="scroll-text text-white text-sm">{songName}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+									<span className="scroll-text text-white text-sm">{currentSong.name}&nbsp;&nbsp;&nbsp;&nbsp;</span>
 								) : (
-									<p className="text-white text-sm text-center truncate">{songName.slice(0, 25)}</p>
+									<p className="text-white text-sm text-center truncate">{currentSong.name.slice(0, 25)}</p>
 								)}
 							</div>
 						</div>
