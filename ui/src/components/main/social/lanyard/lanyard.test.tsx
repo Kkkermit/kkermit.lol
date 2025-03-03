@@ -11,7 +11,6 @@ describe("<Lanyard />", () => {
 		await renderIt();
 		expect(screen.getByRole("link", { name: "Discord Status" })).toBeInTheDocument();
 		expect(screen.getByRole("img", { name: "Discord Status" })).toBeInTheDocument();
-		screen.debug();
 	});
 
 	it("should handle click events", async () => {

@@ -18,7 +18,7 @@ describe("<ProfilePicture />", () => {
 		await renderIt();
 		const figure = screen.getByRole("figure");
 		const image = screen.getByRole("img", { name: "Profile" });
-		expect(figure).toHaveClass("hidden", "md:block");
+		expect(figure).toHaveClass("hidden", "custom:block");
 		expect(image).toHaveClass(
 			"h-64",
 			"w-64",
