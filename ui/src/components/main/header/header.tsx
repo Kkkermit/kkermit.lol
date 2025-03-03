@@ -1,4 +1,4 @@
-import Sparkles from "../../effects/Sparkles";
+import Sparkles from "../../effects/sparkles";
 import { config } from "../../../config/config";
 import "../../../styles/index.css";
 
