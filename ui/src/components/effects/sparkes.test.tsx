@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import Sparkles from "./sparkles";
+import Sparkles from "./Sparkles";
 
 describe("<Sparkles />", () => {
 	beforeEach(() => {

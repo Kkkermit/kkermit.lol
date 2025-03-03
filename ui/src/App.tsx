@@ -4,7 +4,7 @@ import { store } from "./store/store";
 import Landing from "./components/landing/landing";
 import Home from "./components/main/home";
 import AudioPlayer from "./components/audio/AudioPlayer";
-import ParticleBackground from "./components/background/particleBackground";
+import ParticleBackground from "./components/background/ParticleBackground";
 import { useState } from "react";
 
 function App() {

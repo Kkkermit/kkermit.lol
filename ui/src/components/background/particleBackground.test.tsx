@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import ParticleBackground from "./particleBackground";
+import ParticleBackground from "./ParticleBackground";
 
 const mockContext = {
 	fillStyle: "",
