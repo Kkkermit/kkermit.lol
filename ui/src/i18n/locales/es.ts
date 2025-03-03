@@ -3,6 +3,10 @@ const esTranslations = {
 		landing: {
 			clickToEnter: "Haga clic para entrar...",
 		},
+		config: {
+			title: "Kkermit",
+			description: "Desarrollador Full Stack",
+		},
 	},
 };
 
