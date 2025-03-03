@@ -1,9 +1,5 @@
 import { i18n } from "../i18n";
-
-export interface HeaderConfig {
-	title: string;
-	description: string;
-}
+import { HeaderConfig } from "../interfaces/header-interface";
 
 export const config: HeaderConfig = {
 	title: i18n.t("app.config.title"),

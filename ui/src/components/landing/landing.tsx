@@ -1,12 +1,9 @@
 import { useDispatch } from "react-redux";
 import { togglePlay } from "../../store/audioSlice";
 import { i18n } from "../../i18n";
+import { LandingProps } from "../../interfaces/landing-interface";
 
-interface WelcomeProps {
-	onEnter: () => void;
-}
-
-const Welcome = ({ onEnter }: WelcomeProps) => {
+const Landing = ({ onEnter }: LandingProps) => {
 	const dispatch = useDispatch();
 
 	const handleEnter = () => {
@@ -28,4 +25,4 @@ const Welcome = ({ onEnter }: WelcomeProps) => {
 	);
 };
 
-export default Welcome;
+export default Landing;

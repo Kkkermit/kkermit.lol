@@ -4,7 +4,7 @@ import Header from "./header/header";
 import SocialLinks from "./social/socialLinks";
 import "../../styles/index.css";
 
-const Landing: React.FC = () => {
+const Home: React.FC = () => {
 	const [skewValues, setSkewValues] = useState({ x: 0, y: 0 });
 	const [shadowValues, setShadowValues] = useState({ x: 0, y: 0 });
 	const articleRef = useRef<HTMLElement>(null);
@@ -64,4 +64,4 @@ const Landing: React.FC = () => {
 	);
 };
 
-export default Landing;
+export default Home;
