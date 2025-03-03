@@ -5,7 +5,7 @@ import "../../styles/sparkles.css";
 const Sparkles: React.FC<SparklesProps> = ({ children }) => {
 	const sparkles = useMemo(
 		() =>
-			[...Array(40)].map(() => ({
+			[...Array(40)].map((_, index) => ({
 				delay: `${Math.random() * 4}s`,
 				size: `${Math.random() * 6 + 3}px`,
 				speed: `${Math.random() * 2 + 2}s`,
@@ -13,7 +13,7 @@ const Sparkles: React.FC<SparklesProps> = ({ children }) => {
 				top: `${Math.random() * 100}%`,
 				moveX: `${Math.random() * 100 - 50}px`,
 				moveY: `${Math.random() * 100 - 50}px`,
-				id: Math.random(),
+				id: `sparkle-${index}`, // Use index as part of the key
 			})),
 		[],
 	);
