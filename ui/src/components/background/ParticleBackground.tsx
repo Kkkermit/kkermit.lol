@@ -3,6 +3,7 @@ import "../../styles/index.css";
 
 const ParticleBackground: React.FC = () => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
+	const animationFrameRef = useRef<number>();
 
 	useEffect(() => {
 		const canvas = canvasRef.current;
@@ -12,8 +13,10 @@ const ParticleBackground: React.FC = () => {
 		if (!ctx) return;
 
 		const setCanvasSize = () => {
-			canvas.width = window.innerWidth;
-			canvas.height = window.innerHeight;
+			if (canvas) {
+				canvas.width = window.innerWidth;
+				canvas.height = window.innerHeight;
+			}
 		};
 		setCanvasSize();
 
@@ -45,16 +48,27 @@ const ParticleBackground: React.FC = () => {
 				}
 			});
 
-			requestAnimationFrame(animate);
+			animationFrameRef.current = requestAnimationFrame(animate);
 		};
 
 		animate();
 
 		window.addEventListener("resize", setCanvasSize);
-		return () => window.removeEventListener("resize", setCanvasSize);
+		return () => {
+			window.removeEventListener("resize", setCanvasSize);
+			if (animationFrameRef.current) {
+				cancelAnimationFrame(animationFrameRef.current);
+			}
+		};
 	}, []);
 
-	return <canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full pointer-events-none" />;
+	return (
+		<canvas
+			ref={canvasRef}
+			data-testid="particle-canvas"
+			className="fixed top-0 left-0 w-full h-full pointer-events-none"
+		/>
+	);
 };
 
 export default ParticleBackground;
