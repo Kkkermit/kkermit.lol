@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { togglePlay } from "../../store/audioSlice";
+import { i18n } from "../../i18n";
 
 interface WelcomeProps {
 	onEnter: () => void;
@@ -20,7 +21,7 @@ const Welcome = ({ onEnter }: WelcomeProps) => {
 		>
 			<div className="text-center max-w-[90vw] sm:max-w-[80vw] md:max-w-[70vw] lg:max-w-[60vw]">
 				<h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl text-white font-bold mb-4 animate-pulse animate-bounce tracking-wider">
-					Click to Enter...
+					{i18n.t("app.landing.clickToEnter")}
 				</h1>
 			</div>
 		</div>
