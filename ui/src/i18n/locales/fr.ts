@@ -1,13 +1,13 @@
 const frTranslations = {
-	app: {
-		landing: {
+	app: Object.freeze({
+		landing: Object.freeze({
 			clickToEnter: "Cliquez pour entrer...",
-		},
-		config: {
+		}),
+		config: Object.freeze({
 			title: "Kkermit",
 			description: "Développeur Full Stack",
-		},
-	},
+		}),
+	}),
 };
 
 export default frTranslations;

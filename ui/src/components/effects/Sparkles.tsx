@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { SparklesProps } from "../../interfaces/sparkles-interface";
-import "./sparkles.css";
+import "../../styles/sparkles.css";
 
 const Sparkles: React.FC<SparklesProps> = ({ children }) => {
 	const sparkles = useMemo(
