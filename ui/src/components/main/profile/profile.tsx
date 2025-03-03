@@ -1,7 +1,7 @@
 import kermit from "../../../assets/profile-picture/kermit.gif";
 
 const ProfilePicture: React.FC = () => (
-	<figure className="hidden md:block">
+	<figure className="hidden custom:block">
 		<img
 			src={kermit}
 			alt="Profile"

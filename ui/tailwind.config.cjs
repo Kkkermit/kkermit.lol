@@ -9,6 +9,9 @@ module.exports = {
 			borderWidth: {
 				3: "3px",
 			},
+			screens: {
+				custom: "1138px",
+			},
 		},
 	},
 	variants: {
