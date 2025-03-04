@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import ProfilePicture from "./profile/profile";
 import Header from "./header/header";
 import SocialLinks from "./social/socialLinks";
+import { COMMON_BG_STYLE } from "../../utils/colorUtils";
 import "../../styles/index.css";
 
 const Home: React.FC = () => {
@@ -36,25 +37,24 @@ const Home: React.FC = () => {
 
 	return (
 		<main className="min-h-screen flex items-center justify-center">
-			<section className="flex flex-col md:flex-row items-center gap-32 px-4 py-8">
+			<section className="flex flex-col md:flex-row items-center gap-32 px-4 py-8 pt-16 sm:pt-8">
 				<ProfilePicture />
 				<article
 					ref={articleRef}
 					onMouseMove={handleMouseMove}
 					onMouseLeave={handleMouseLeave}
 					style={{
+						...COMMON_BG_STYLE,
 						transform: `perspective(1000px) scale(1.02)
-                                  rotateX(${skewValues.x}deg)
-                                  rotateY(${skewValues.y}deg)
-                                  skew(${skewValues.y * 0.5}deg, ${skewValues.x * 0.5}deg)`,
+                      rotateX(${skewValues.x}deg)
+                      rotateY(${skewValues.y}deg)
+                      skew(${skewValues.y * 0.5}deg, ${skewValues.x * 0.5}deg)`,
 						boxShadow: `${shadowValues.x}px ${shadowValues.y}px 20px rgba(255,255,255,0.1),
-                                   0 0 30px rgba(255,255,255,0.05)`,
+                       0 0 30px rgba(255,255,255,0.05)`,
 						transition: "transform 0.2s ease-out, box-shadow 0.2s ease-out",
 					}}
-					className="w-[90vw] max-w-[400px] md:max-w-[700px] 
-                              bg-[rgba(88,85,85,0.4)] backdrop-blur-[0.5px] 
-                              rounded-xl p-8 cursor-pointer
-                              hover:shadow-xl hover:shadow-white/10"
+					className="w-[90vw] max-w-[400px] md:max-w-[700px] rounded-xl p-8 cursor-pointer
+                  hover:shadow-xl hover:shadow-white/10"
 				>
 					<Header />
 					<SocialLinks />

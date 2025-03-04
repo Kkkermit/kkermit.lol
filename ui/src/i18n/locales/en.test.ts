@@ -16,7 +16,9 @@ describe("English Translations", () => {
 		expect(enTranslations.app.config).toHaveProperty("title");
 		expect(enTranslations.app.config).toHaveProperty("description");
 		expect(enTranslations.app.config.title).toBe("Kkermit");
-		expect(enTranslations.app.config.description).toBe("Full Stack Developer");
+		expect(enTranslations.app.config.description).toBe(
+			"| React | TailwindCSS | Vite | TypeScript | JavaScript | Java | MongoDB |",
+		);
 	});
 
 	it("should not have undefined or null values", () => {

@@ -5,7 +5,7 @@ const esTranslations = {
 		}),
 		config: Object.freeze({
 			title: "Kkermit",
-			description: "Desarrollador Full Stack",
+			description: "| React | TailwindCSS | Vite | TypeScript | JavaScript | Java | MongoDB |",
 		}),
 	}),
 };

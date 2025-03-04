@@ -1,16 +1,22 @@
+import React from "react";
 import githubLogo from "../../../assets/icons/github.svg";
 import discordLogo from "../../../assets/icons/discord.svg";
 import spotifyLogo from "../../../assets/icons/spotify.svg";
 import SocialLink from "./socialLink";
-import Lanyard from "./lanyard/lanyard";
+import CustomDiscordCard from "./lanyard/CustomDiscordCard";
 import { links } from "../../../link-container/links";
+import { BG_COLOR, COMMON_BG_STYLE } from "../../../utils/colorUtils";
 
 const SocialLinks: React.FC = () => (
 	<div
-		className="bg-[rgba(88,85,85,0.4)] backdrop-blur-[0.5px] 
-                    rounded-xl p-6 max-w-[600px] mx-auto"
+		className="rounded-xl p-6 max-w-[600px] mx-auto mt-12 sm:mt-6"
+		style={{
+			...COMMON_BG_STYLE,
+			// Use BG_COLOR directly to ensure it's being used
+			backgroundColor: BG_COLOR,
+		}}
 	>
-		<Lanyard />
+		<CustomDiscordCard />
 
 		<nav className="flex justify-center gap-8">
 			<SocialLink href={links.github} icon={githubLogo} alt="GitHub" glowColor="#fff" />

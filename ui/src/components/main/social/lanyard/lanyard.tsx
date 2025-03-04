@@ -1,22 +1,15 @@
+/**
+ * This component is deprecated in favor of CustomDiscordCard.
+ * It's kept for reference purposes but should not be used in new code.
+ * 
+ * @deprecated Use CustomDiscordCard instead for a more interactive and feature-rich Discord status display.
+ */
 import React from "react";
-import { links } from "../../../../link-container/links";
+import CustomDiscordCard from "./CustomDiscordCard";
 
 const Lanyard: React.FC = () => {
-	const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-		e.preventDefault();
-		window.open(links.discord, "_blank");
-	};
-
-	return (
-		<a href={links.discord} target="_blank" rel="noopener noreferrer" className="block mb-6" onClick={handleClick}>
-			<img
-				src={links.lanyardApi}
-				alt="Discord Status"
-				className="w-full max-w-[450px] mx-auto min-h-[180px]"
-				loading="lazy"
-			/>
-		</a>
-	);
+  // Simply render the CustomDiscordCard instead
+  return <CustomDiscordCard />;
 };
 
 export default Lanyard;

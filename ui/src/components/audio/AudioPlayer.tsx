@@ -4,6 +4,7 @@ import { RootState } from "../../store/store";
 import { togglePlay, setVolume } from "../../store/audioSlice";
 import pauseIcon from "../../assets/pause-unpause-buttons/pause.svg";
 import unpauseIcon from "../../assets/pause-unpause-buttons/unpause.svg";
+import { BG_COLOR, BORDER_COLOR } from "../../utils/colorUtils";
 import "../../styles/animations.css";
 
 const AudioPlayer = () => {
@@ -57,7 +58,13 @@ const AudioPlayer = () => {
 			<audio ref={audioRef} src={currentSong.path} loop />
 			<div className="group relative">
 				<div className="flex flex-col">
-					<div className="flex items-center p-1.5 rounded-[15px] border-3 border-[rgba(116,116,116,0.6)] bg-[rgba(114,114,114,0.5)] backdrop-blur-[15px] transition-all duration-300 w-[51.7px] group-hover:w-[200px]">
+						<div 
+							className="flex items-center p-1.5 rounded-[15px] border-3 transition-all duration-300 w-[51.7px] group-hover:w-[200px] shadow-lg"
+							style={{ 
+								backgroundColor: BG_COLOR,
+								borderColor: BORDER_COLOR 
+							}}
+						>
 						<div className="min-w-[32px] h-[32px] flex items-center justify-center">
 							<button
 								onClick={handlePlayPause}
@@ -81,7 +88,13 @@ const AudioPlayer = () => {
 					</div>
 
 					<div className="absolute top-full left-0 mt-2 w-full opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none">
-						<div className="bg-[rgba(114,114,114,0.5)] backdrop-blur-[15px] rounded-[15px] border-3 border-[rgba(116,116,116,0.6)] p-2">
+							<div 
+								className="rounded-[15px] border-3 p-2"
+								style={{ 
+									backgroundColor: BG_COLOR,
+									borderColor: BORDER_COLOR
+								}}
+							>
 							<div className="scroll-container w-[150px] mx-auto">
 								{isLongText ? (
 									<span className="scroll-text text-white text-sm">{currentSong.name}&nbsp;&nbsp;&nbsp;&nbsp;</span>

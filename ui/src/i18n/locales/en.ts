@@ -5,7 +5,7 @@ const enTranslations = Object.freeze({
 		}),
 		config: Object.freeze({
 			title: "Kkermit",
-			description: "Full Stack Developer",
+			description: "| React | TailwindCSS | Vite | TypeScript | JavaScript | Java | MongoDB |",
 		}),
 	}),
 });
