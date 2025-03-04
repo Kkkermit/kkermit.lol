@@ -1,46 +1,36 @@
-import { Timestamps } from "../types/types";
-
-export function formatTimestamp(timestamps: Timestamps): string {
-	if (timestamps.start) {
-		const startTime = new Date(timestamps.start);
-		const now = new Date();
-		const diff = Math.floor((now.getTime() - startTime.getTime()) / 1000);
-
-		// Format as elapsed time
-		if (diff < 60) {
-			return "just now";
-		} else if (diff < 3600) {
-			const mins = Math.floor(diff / 60);
-			return `${mins} minute${mins !== 1 ? "s" : ""} elapsed`;
-		} else if (diff < 86400) {
-			const hours = Math.floor(diff / 3600);
-			return `${hours} hour${hours !== 1 ? "s" : ""} elapsed`;
-		} else {
-			const days = Math.floor(diff / 86400);
-			return `${days} day${days !== 1 ? "s" : ""} elapsed`;
-		}
-	}
+/**
+ * Format an activity timestamp to show elapsed or remaining time
+ * @param timestamps The activity timestamps object
+ * @param timeUpdate Optional parameter to force recalculation of time
+ */
+export const formatTimestamp = (timestamps: { start?: number; end?: number }, timeUpdate?: number) => {
+	const now = Date.now() + (timeUpdate !== undefined ? 0 : 0);
 
 	if (timestamps.end) {
-		const endTime = new Date(timestamps.end);
-		const now = new Date();
-		const diff = Math.floor((endTime.getTime() - now.getTime()) / 1000);
+		const secondsRemaining = Math.floor((timestamps.end - now) / 1000);
+		if (secondsRemaining <= 0) return "ending now";
 
-		if (diff < 0) {
-			return "ended";
-		} else if (diff < 60) {
-			return "less than a minute left";
-		} else if (diff < 3600) {
-			const mins = Math.floor(diff / 60);
-			return `${mins} minute${mins !== 1 ? "s" : ""} left`;
-		} else if (diff < 86400) {
-			const hours = Math.floor(diff / 3600);
-			return `${hours} hour${hours !== 1 ? "s" : ""} left`;
+		const hours = Math.floor(secondsRemaining / 3600);
+		const minutes = Math.floor((secondsRemaining % 3600) / 60);
+
+		if (hours > 0) {
+			return `${hours}h ${minutes}m remaining`;
 		} else {
-			const days = Math.floor(diff / 86400);
-			return `${days} day${days !== 1 ? "s" : ""} left`;
+			return `${minutes}m ${secondsRemaining % 60}s remaining`;
+		}
+	} else if (timestamps.start) {
+		const secondsElapsed = Math.floor((now - timestamps.start) / 1000);
+		const hours = Math.floor(secondsElapsed / 3600);
+		const minutes = Math.floor((secondsElapsed % 3600) / 60);
+
+		if (hours > 0) {
+			return `${hours}h ${minutes}m elapsed`;
+		} else if (minutes > 0) {
+			return `${minutes}m ${secondsElapsed % 60}s elapsed`;
+		} else {
+			return `${secondsElapsed}s elapsed`;
 		}
 	}
 
 	return "";
-}
+};

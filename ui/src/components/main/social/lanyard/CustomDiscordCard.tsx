@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { links } from "../../../../link-container/links";
 import { fetchDiscordUser } from "../../../../utils/discordApi";
 import { formatTimestamp } from "../../../../utils/formatUtils";
 import { BG_COLOR, BG_COLOR_SECONDARY, COMMON_BG_STYLE } from "../../../../utils/colorUtils";
 import { DiscordUser } from "../../../../interfaces/discord-user-interface";
+import { discordId } from "../../../../config/config";
 
 // Discord Activity Types
 const ACTIVITY_TYPES: Record<number, string> = {
@@ -23,24 +24,31 @@ const STATUS_COLORS: Record<string, string> = {
 	offline: "bg-gray-500",
 };
 
-// Helper to format song duration
-const formatSongDuration = (start: number, end: number) => {
-	const total = Math.floor((end - start) / 1000);
-	const current = Math.floor((Date.now() - start) / 1000);
-	const minutes = Math.floor(current / 60);
-	const seconds = current % 60;
-	const totalMinutes = Math.floor(total / 60);
-	const totalSeconds = total % 60;
-
-	return `${minutes}:${seconds.toString().padStart(2, "0")} / ${totalMinutes}:${totalSeconds
-		.toString()
-		.padStart(2, "0")}`;
-};
+// Remove the unused formatSongDuration function since we're using getFormattedSongDuration instead
 
 const CustomDiscordCard: React.FC = () => {
 	const [userData, setUserData] = useState<DiscordUser | null>(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
+	// State to force component re-renders to update timestamps
+	const [timeUpdate, setTimeUpdate] = useState(0);
+	// Ref to keep track of intervals
+	const intervalsRef = useRef<number[]>([]);
+
+	// Effect to continuously update timestamps
+	useEffect(() => {
+		// Update every second to keep timestamps current
+		const timeInterval = window.setInterval(() => {
+			setTimeUpdate((prev) => prev + 1);
+		}, 1000);
+
+		// Add to intervals ref for cleanup
+		intervalsRef.current.push(timeInterval);
+
+		return () => {
+			window.clearInterval(timeInterval);
+		};
+	}, []);
 
 	useEffect(() => {
 		// Skip API calls during test environment
@@ -54,7 +62,7 @@ const CustomDiscordCard: React.FC = () => {
 
 		const getUserData = async () => {
 			try {
-				const userId = "526853643962679323";
+				const userId = discordId;
 				const data = await fetchDiscordUser(userId);
 				setUserData(data);
 			} catch (err) {
@@ -68,8 +76,14 @@ const CustomDiscordCard: React.FC = () => {
 		getUserData();
 
 		// Refresh data every 30 seconds
-		const interval = setInterval(getUserData, 30000);
-		return () => clearInterval(interval);
+		const dataInterval = window.setInterval(getUserData, 30000);
+		intervalsRef.current.push(dataInterval);
+
+		return () => {
+			// Clean up all intervals when component unmounts
+			intervalsRef.current.forEach((interval) => window.clearInterval(interval));
+			intervalsRef.current = [];
+		};
 	}, []);
 
 	const handleClick = () => {
@@ -117,6 +131,23 @@ const CustomDiscordCard: React.FC = () => {
 		}
 
 		return imageUrl; // Return the original URL as a fallback
+	};
+
+	// Helper to format song duration that uses the updated timeUpdate state
+	const getFormattedSongDuration = (start: number, end: number) => {
+		// Use timeUpdate in calculation to ensure this function reruns every second
+		const currentTime = Date.now() + timeUpdate * 0;
+
+		const total = Math.floor((end - start) / 1000);
+		const current = Math.floor((currentTime - start) / 1000);
+		const minutes = Math.floor(current / 60);
+		const seconds = current % 60;
+		const totalMinutes = Math.floor(total / 60);
+		const totalSeconds = total % 60;
+
+		return `${minutes}:${seconds.toString().padStart(2, "0")} / ${totalMinutes}:${totalSeconds
+			.toString()
+			.padStart(2, "0")}`;
 	};
 
 	if (loading) {
@@ -254,7 +285,7 @@ const CustomDiscordCard: React.FC = () => {
 							<div className="text-gray-400 text-xs truncate">on {userData.spotify.album}</div>
 							{userData.spotify.timestamps && (
 								<div className="text-gray-400 text-xs mt-1 hidden sm:block">
-									{formatSongDuration(userData.spotify.timestamps.start, userData.spotify.timestamps.end)}
+									{getFormattedSongDuration(userData.spotify.timestamps.start, userData.spotify.timestamps.end)}
 								</div>
 							)}
 						</div>
@@ -294,7 +325,8 @@ const CustomDiscordCard: React.FC = () => {
 
 								{activity.timestamps && (
 									<div className="text-gray-400 text-xs mt-0.5 sm:mt-1 hidden sm:block">
-										{formatTimestamp(activity.timestamps)}
+										{/* Pass timeUpdate as a dependency to ensure this refreshes */}
+										{formatTimestamp(activity.timestamps, timeUpdate)}
 									</div>
 								)}
 							</div>
