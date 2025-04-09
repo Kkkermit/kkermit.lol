@@ -10,14 +10,12 @@ export const fetchDiscordUser = async (userId: string): Promise<DiscordUser> => 
 		}
 
 		return {
-			// Basic user info
 			id: data.data.discord_user.id,
 			username: data.data.discord_user.username,
 			discriminator: data.data.discord_user.discriminator,
 			avatar: data.data.discord_user.avatar,
 			status: data.data.discord_status,
 
-			// Full user data
 			discord_user: data.data.discord_user,
 			activities: data.data.activities,
 			spotify: data.data.spotify,

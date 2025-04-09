@@ -16,7 +16,6 @@
 	font-style: normal;
 }
 
-/* Add consistent color definitions */
 :root {
 	--bg-color-main: rgba(88, 85, 85, 0.4);
 	--bg-color-secondary: rgba(88, 85, 85, 0.6);
@@ -26,7 +25,6 @@ body {
 	font-family: "Satoshi", sans-serif;
 }
 
-/* Fixed selectors for global color consistency */
 div[class*="bg-[rgba(188,85,85,0.4)"],
 div[class*="bg-[rgba(88,85,85,0.4)"],
 [class*="lanyard"],
@@ -37,32 +35,27 @@ div[class*="bg-[rgba(116,116,116,0.6)"] {
 	-webkit-backdrop-filter: none !important;
 }
 
-/* Remove any backdrop blur effects */
 [class*="backdrop-blur"] {
 	backdrop-filter: none !important;
 	-webkit-backdrop-filter: none !important;
 }
 
-/* Background color overrides - simpler approach */
 .bg-container {
 	background-color: rgba(88, 85, 85, 0.4) !important;
 }
 
-/* Image containers and smaller UI elements */
 .image-container,
 .avatar-container,
 .status-indicator-bg {
 	background-color: var(--bg-color-secondary) !important;
 }
 
-/* Remove hover shadow effects from Discord card */
 .discord-card,
 [class*="lanyard"] > *,
 div[class*="hover:shadow"] {
 	box-shadow: none !important;
 }
 
-/* Apply consistent background color */
 div[style*="backdropFilter"],
 div[style*="backdrop-filter"],
 div[class*="bg-[rgba"] {

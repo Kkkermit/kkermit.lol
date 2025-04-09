@@ -13,7 +13,7 @@ const Sparkles: React.FC<SparklesProps> = ({ children }) => {
 				top: `${Math.random() * 100}%`,
 				moveX: `${Math.random() * 100 - 50}px`,
 				moveY: `${Math.random() * 100 - 50}px`,
-				id: `sparkle-${index}`, // Use index as part of the key
+				id: `sparkle-${index}`,
 			})),
 		[],
 	);

@@ -6,7 +6,6 @@ import { BG_COLOR, BG_COLOR_SECONDARY, COMMON_BG_STYLE } from "../../../../utils
 import { DiscordUser } from "../../../../interfaces/discord-user-interface";
 import { discordId } from "../../../../config/config";
 
-// Discord Activity Types
 const ACTIVITY_TYPES: Record<number, string> = {
 	0: "Playing",
 	1: "Streaming",
@@ -16,7 +15,6 @@ const ACTIVITY_TYPES: Record<number, string> = {
 	5: "Competing in",
 };
 
-// Status indicator colors with animation classes
 const STATUS_COLORS: Record<string, string> = {
 	online: "bg-green-500",
 	idle: "bg-yellow-400",
@@ -24,25 +22,18 @@ const STATUS_COLORS: Record<string, string> = {
 	offline: "bg-gray-500",
 };
 
-// Remove the unused formatSongDuration function since we're using getFormattedSongDuration instead
-
 const CustomDiscordCard: React.FC = () => {
 	const [userData, setUserData] = useState<DiscordUser | null>(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
-	// State to force component re-renders to update timestamps
 	const [timeUpdate, setTimeUpdate] = useState(0);
-	// Ref to keep track of intervals
 	const intervalsRef = useRef<number[]>([]);
 
-	// Effect to continuously update timestamps
 	useEffect(() => {
-		// Update every second to keep timestamps current
 		const timeInterval = window.setInterval(() => {
 			setTimeUpdate((prev) => prev + 1);
 		}, 1000);
 
-		// Add to intervals ref for cleanup
 		intervalsRef.current.push(timeInterval);
 
 		return () => {
@@ -51,9 +42,7 @@ const CustomDiscordCard: React.FC = () => {
 	}, []);
 
 	useEffect(() => {
-		// Skip API calls during test environment
 		if (process.env.NODE_ENV === "test") {
-			// Use setTimeout to avoid act warnings in tests
 			const timer = setTimeout(() => {
 				setLoading(false);
 			}, 0);
@@ -75,12 +64,10 @@ const CustomDiscordCard: React.FC = () => {
 
 		getUserData();
 
-		// Refresh data every 30 seconds
 		const dataInterval = window.setInterval(getUserData, 30000);
 		intervalsRef.current.push(dataInterval);
 
 		return () => {
-			// Clean up all intervals when component unmounts
 			intervalsRef.current.forEach((interval) => window.clearInterval(interval));
 			intervalsRef.current = [];
 		};
@@ -90,23 +77,18 @@ const CustomDiscordCard: React.FC = () => {
 		window.open(links.discord, "_blank", "noopener,noreferrer");
 	};
 
-	// Helper function to extract the actual URL from mp:external format
 	const extractImageUrl = (imageUrl: string, applicationId?: string): string => {
 		if (!imageUrl) return "";
 
-		// Handle mp:external URLs from VSCode
 		if (imageUrl.startsWith("mp:external/")) {
 			try {
-				// Split after mp:external/ and find where the actual URL starts (https/)
 				const parts = imageUrl.split("mp:external/")[1];
 				const actualUrlIndex = parts.indexOf("/https/");
 
 				if (actualUrlIndex !== -1) {
-					// Extract the URL part and replace /https/ with https://
-					const extractedUrl = parts.substring(actualUrlIndex + 6); // +6 to skip /https/
+					const extractedUrl = parts.substring(actualUrlIndex + 6);
 					return "https://" + extractedUrl;
 				} else {
-					// Try another approach for legacy format
 					const urlMatch = parts.match(/\/https\/(.+)/);
 					if (urlMatch && urlMatch[1]) {
 						return "https://" + urlMatch[1];
@@ -120,22 +102,18 @@ const CustomDiscordCard: React.FC = () => {
 			}
 		}
 
-		// Handle spotify URLs
 		if (imageUrl.startsWith("spotify:")) {
 			return `https://i.scdn.co/image/${imageUrl.split(":")[1]}`;
 		}
 
-		// Handle Discord app asset URLs with applicationId
 		if (applicationId) {
 			return `https://cdn.discordapp.com/app-assets/${applicationId}/${imageUrl}.png`;
 		}
 
-		return imageUrl; // Return the original URL as a fallback
+		return imageUrl;
 	};
 
-	// Helper to format song duration that uses the updated timeUpdate state
 	const getFormattedSongDuration = (start: number, end: number) => {
-		// Use timeUpdate in calculation to ensure this function reruns every second
 		const currentTime = Date.now() + timeUpdate * 0;
 
 		const total = Math.floor((end - start) / 1000);
@@ -155,7 +133,7 @@ const CustomDiscordCard: React.FC = () => {
 			<div
 				className="w-full mx-auto mb-4 sm:mb-6 rounded-xl p-3 sm:p-4 flex justify-center items-center h-[80px] sm:h-[100px]"
 				style={{
-					backgroundColor: BG_COLOR, // Directly use BG_COLOR
+					backgroundColor: BG_COLOR,
 					boxShadow: "none",
 				}}
 			>
@@ -172,17 +150,13 @@ const CustomDiscordCard: React.FC = () => {
 		);
 	}
 
-	// Get avatar URL
 	const avatarUrl = userData.avatar
 		? `https://cdn.discordapp.com/avatars/${userData.id}/${userData.avatar}.png?size=256`
 		: `https://cdn.discordapp.com/embed/avatars/0.png`;
 
-	// Get all activities excluding custom status
 	const allActivities = userData.activities?.filter((act) => act.type !== 4) || [];
-	// Get custom status separately
 	const customStatus = userData.activities?.find((act) => act.type === 4);
 
-	// Limit displayed activities to max 3
 	const mainActivities = allActivities.slice(0, 3);
 
 	return (
@@ -196,25 +170,20 @@ const CustomDiscordCard: React.FC = () => {
 				MozBoxShadow: "none",
 			}}
 		>
-			{/* User Info */}
 			<div className="flex items-center gap-2 sm:gap-3">
-				{/* Avatar & Status - updated with ping animation */}
 				<div className="relative">
 					<img
 						src={avatarUrl}
 						alt={userData.username || "Discord User"}
 						className="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover"
 					/>
-					{/* Status indicator with ping animation */}
 					<div className="absolute bottom-0 right-0 flex items-center justify-center">
-						{/* Base status color */}
 						<div
 							className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full border-2 border-[rgba(58,58,58,0.8)] ${
 								STATUS_COLORS[userData.status || "offline"]
 							}`}
 						></div>
 
-						{/* Animated ping overlay - only for active statuses */}
 						{userData.status !== "offline" && (
 							<span
 								className={`absolute inline-flex h-full w-full rounded-full ${
@@ -225,7 +194,6 @@ const CustomDiscordCard: React.FC = () => {
 					</div>
 				</div>
 
-				{/* User Details */}
 				<div className="flex-1 min-w-0">
 					<div className="font-medium text-white flex items-center text-sm sm:text-base truncate">
 						{userData.discord_user?.display_name || userData.username}
@@ -233,7 +201,6 @@ const CustomDiscordCard: React.FC = () => {
 					<div className="flex items-center text-xs text-gray-300 truncate">
 						<span className="capitalize mr-1">{userData.status || "offline"}</span>
 
-						{/* Custom Status */}
 						{customStatus && customStatus.emoji && (
 							<span className="flex items-center gap-1 ml-1 flex-shrink-0">
 								{customStatus.emoji.animated ? (
@@ -251,7 +218,6 @@ const CustomDiscordCard: React.FC = () => {
 				</div>
 			</div>
 
-			{/* Custom Status Text (if exists) */}
 			{customStatus && customStatus.state && (
 				<div className="mt-1.5 sm:mt-2 text-gray-200 text-xs sm:text-sm truncate">
 					{customStatus.state.startsWith("https://") ? (
@@ -270,11 +236,9 @@ const CustomDiscordCard: React.FC = () => {
 				</div>
 			)}
 
-			{/* Spotify */}
 			{userData.spotify && (
 				<div className="mt-2 sm:mt-3 border-t border-white/10 pt-2 sm:pt-3 px-0 sm:px-1">
 					<div className="flex items-center">
-						{/* Spotify Info */}
 						<div className="flex-1 min-w-0">
 							<div className="text-xs text-green-400 mb-0.5 sm:mb-1 flex items-center">
 								<div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-500 rounded-full mr-1"></div>
@@ -290,7 +254,6 @@ const CustomDiscordCard: React.FC = () => {
 							)}
 						</div>
 
-						{/* Spotify Album Art */}
 						<div className="ml-2 flex-shrink-0">
 							<img
 								src={userData.spotify.album_art_url}
@@ -302,7 +265,6 @@ const CustomDiscordCard: React.FC = () => {
 				</div>
 			)}
 
-			{/* Display regular activities (excluding Spotify which we already showed) */}
 			{mainActivities
 				.filter((act) => act.name !== "Spotify")
 				.map((activity, index) => (
@@ -325,13 +287,11 @@ const CustomDiscordCard: React.FC = () => {
 
 								{activity.timestamps && (
 									<div className="text-gray-400 text-xs mt-0.5 sm:mt-1 hidden sm:block">
-										{/* Pass timeUpdate as a dependency to ensure this refreshes */}
 										{formatTimestamp(activity.timestamps, timeUpdate)}
 									</div>
 								)}
 							</div>
 
-							{/* Activity Images - Updated to handle external URLs */}
 							{activity.assets?.large_image && (
 								<div className="ml-2 flex-shrink-0">
 									<div
@@ -349,7 +309,6 @@ const CustomDiscordCard: React.FC = () => {
 											}}
 										/>
 
-										{/* Small image overlay */}
 										{activity.assets?.small_image && (
 											<div
 												className="absolute bottom-0 right-0 p-0.5 rounded-full"
@@ -372,7 +331,6 @@ const CustomDiscordCard: React.FC = () => {
 							)}
 						</div>
 
-						{/* Activity Buttons */}
 						{activity.buttons && activity.buttons.length > 0 && (
 							<div className="mt-1.5 sm:mt-2 flex flex-wrap gap-1 sm:gap-2">
 								{activity.buttons.map((button, i) => (
@@ -391,7 +349,6 @@ const CustomDiscordCard: React.FC = () => {
 					</div>
 				))}
 
-			{/* Show count of additional activities if there are more than 3 */}
 			{allActivities.length > 3 && (
 				<div className="mt-2 sm:mt-3 border-t border-white/10 pt-2 sm:pt-3 px-0 sm:px-1 text-center">
 					<span className="text-xs text-gray-400">

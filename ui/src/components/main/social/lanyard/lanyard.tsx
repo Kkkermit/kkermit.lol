@@ -8,7 +8,6 @@ import React from "react";
 import CustomDiscordCard from "./CustomDiscordCard";
 
 const Lanyard: React.FC = () => {
-	// Simply render the CustomDiscordCard instead
 	return <CustomDiscordCard />;
 };
 

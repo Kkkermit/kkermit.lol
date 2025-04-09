@@ -12,7 +12,6 @@ const SocialLinks: React.FC = () => (
 		className="rounded-xl p-6 max-w-[600px] mx-auto mt-12 sm:mt-6"
 		style={{
 			...COMMON_BG_STYLE,
-			// Use BG_COLOR directly to ensure it's being used
 			backgroundColor: BG_COLOR,
 		}}
 	>

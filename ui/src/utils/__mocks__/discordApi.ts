@@ -48,7 +48,6 @@ export const mockDiscordUser = {
 	},
 };
 
-// Mock fetch function for Discord API
 export const fetchDiscordUser = jest.fn().mockImplementation(async () => {
 	return mockDiscordUser;
 });
